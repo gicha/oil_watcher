@@ -46,7 +46,7 @@ class OilFormBloc extends Bloc<OilFormEvent, OilFormState> {
       List<OilForm> oilForms = await OilFormApi.all();
       OilForm myForm;
       int place;
-      oilForms.sort((OilForm a, OilForm b) => ((a.summary - b.summary) * 100).floor());
+      oilForms.sort((OilForm a, OilForm b) => ((b.summary - a.summary) * 100).floor());
       for (int i = 0; i < oilForms.length; i++) {
         if (oilForms[i].company == Config.company) {
           myForm = oilForms[i];

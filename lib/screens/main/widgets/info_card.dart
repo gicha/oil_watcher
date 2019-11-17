@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:oil_watcher/models/models.dart';
 import 'package:oil_watcher/res/res.dart';
 import 'package:oil_watcher/res/text_style.dart';
+import 'package:oil_watcher/screens/compairing/index.dart';
+import 'package:oil_watcher/screens/info/index.dart';
 import 'package:oil_watcher/utils/config.dart';
+import 'package:page_transition/page_transition.dart';
 
 class InfoCard extends StatelessWidget {
   final OilForm myForm;
@@ -17,9 +20,7 @@ class InfoCard extends StatelessWidget {
       margin: EdgeInsets.all(10),
       elevation: 4,
       color: ITColors.primaryDark,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
       child: Container(
         padding: EdgeInsets.all(20),
         height: MediaQuery.of(context).size.height * .3,
@@ -33,12 +34,12 @@ class InfoCard extends StatelessWidget {
             ),
             SizedBox(height: 10),
             Text(
-              "$place место",
+              place == null ? "" : "$place место",
               style: ITTextStyle(fontSize: 24, fontWeight: FontWeight.w500, color: ITColors.bg),
             ),
             SizedBox(height: 10),
             Text(
-              "Вашу компанию можно считать экологичной!",
+              place == null ? "" : "Вашу компанию можно считать экологичной!",
               style: ITTextStyle(fontSize: 22, fontWeight: FontWeight.w400, color: ITColors.bg),
               textAlign: TextAlign.center,
             ),

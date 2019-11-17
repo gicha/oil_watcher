@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oil_watcher/blocs/blocs.dart';
+import 'package:oil_watcher/screens/compairing/index.dart';
 import 'package:oil_watcher/screens/main/provider.dart';
 import 'package:oil_watcher/screens/main/widgets/info_card.dart';
 import 'package:oil_watcher/screens/main/widgets/results.dart';
 import 'package:oil_watcher/screens/main/widgets/table_header.dart';
 import 'package:oil_watcher/screens/main/widgets/title.dart';
+import 'package:page_transition/page_transition.dart';
 
 class MainView extends StatefulWidget {
   const MainView({Key key, @required this.provider}) : super(key: key);
@@ -31,7 +33,11 @@ class _MainViewState extends State<MainView> {
               child: Column(
                 children: <Widget>[
                   DashBoardTitle(),
-                  InfoCard(myForm: state.myForm, place: state.place),
+                  GestureDetector(
+                    onTap: () => Navigator.of(context).push(PageTransition(
+                        type: PageTransitionType.fade, child: CompairingScreen(oilForms: state.oilForm))),
+                    child: InfoCard(myForm: state.myForm, place: state.place),
+                  ),
                   SizedBox(height: 20),
                   TableHeader(),
                   Results(forms: state.oilForm),
