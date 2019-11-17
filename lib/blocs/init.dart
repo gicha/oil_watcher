@@ -4,6 +4,12 @@ abstract class InitEvent {}
 
 class InitInitEvent extends InitEvent {}
 
+class LoginInitEvent extends InitEvent {
+  final String login;
+  final String password;
+  LoginInitEvent(this.login, this.password);
+}
+
 class ForceInitEvent extends InitEvent {}
 
 enum InitState { notInitedLoading, noUser, loading, inited }
@@ -28,7 +34,26 @@ class InitBloc extends Bloc<InitEvent, InitState> {
       else
         debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
       await init();
-      yield InitState.noUser;
+      var store = StoreRef<String, dynamic>.main();
+      Config.company = await store.record("company").get(DataBase.db);
+      yield Config.company != null ? InitState.inited : InitState.noUser;
+      await Future.delayed(Duration(milliseconds: 1000));
+    }
+    if (event is LoginInitEvent) {
+      yield InitState.loading;
+      var store = StoreRef<String, dynamic>.main();
+      init();
+      if (event.login == "admin@rosneft.com" && event.password == "qwerty") {
+        store.record("company").put(DataBase.db, "Роснефть");
+        Config.company = event.login;
+      } else {
+        yield InitState.noUser;
+        NotificationBloc.getInstance().dispatch(NotificationEvent("Неправильный email или пароль"));
+      }
+      if (Config.company != null) {
+        Api.init();
+        yield InitState.inited;
+      }
     }
     if (event is ForceInitEvent) yield InitState.inited;
   }
@@ -36,7 +61,7 @@ class InitBloc extends Bloc<InitEvent, InitState> {
   init() async {
     await DataBase().open();
     initializeDateFormatting();
-    // OilFormBloc.getInstance().dispatch(OilForm());
     Api.init();
+    OilFormBloc.getInstance().dispatch(FetchOilForm());
   }
 }
