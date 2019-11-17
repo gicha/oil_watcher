@@ -8,6 +8,7 @@ import 'package:oil_watcher/screens/main/widgets/results.dart';
 import 'package:oil_watcher/screens/main/widgets/table_header.dart';
 import 'package:oil_watcher/screens/main/widgets/title.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class MainView extends StatefulWidget {
   const MainView({Key key, @required this.provider}) : super(key: key);
@@ -27,24 +28,29 @@ class _MainViewState extends State<MainView> {
     return BlocBuilder(
         bloc: formBloc,
         builder: (context, OilFormState state) {
-          return Container(
-            width: width,
-            child: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  DashBoardTitle(),
-                  GestureDetector(
-                    onTap: () => Navigator.of(context).push(PageTransition(
-                        type: PageTransitionType.fade, child: CompairingScreen(oilForms: state.oilForm))),
-                    child: InfoCard(myForm: state.myForm, place: state.place),
+          provider.setLoadStatus(state.loadStatus);
+          return SmartRefresher(
+              enablePullDown: true,
+              controller: provider.refreshController,
+              onRefresh: () => formBloc.dispatch(FetchOilForm()),
+              child: Container(
+                width: width,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      DashBoardTitle(),
+                      GestureDetector(
+                        onTap: () => Navigator.of(context).push(PageTransition(
+                            type: PageTransitionType.fade, child: CompairingScreen(oilForms: state.oilForm))),
+                        child: InfoCard(myForm: state.myForm, place: state.place),
+                      ),
+                      SizedBox(height: 20),
+                      TableHeader(),
+                      Results(forms: state.oilForm),
+                    ],
                   ),
-                  SizedBox(height: 20),
-                  TableHeader(),
-                  Results(forms: state.oilForm),
-                ],
-              ),
-            ),
-          );
+                ),
+              ));
         });
   }
 }

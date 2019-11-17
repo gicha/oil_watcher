@@ -4,6 +4,7 @@ import 'package:oil_watcher/res/res.dart';
 import 'package:oil_watcher/res/text_style.dart';
 import 'package:oil_watcher/screens/main/provider.dart';
 import 'package:oil_watcher/screens/main/view/index.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 /// Main Screen
 /// {@category Screens}
@@ -17,17 +18,13 @@ class _MainScreenState extends State<MainScreen> {
   OilFormBloc oilFormBloc;
   //other
   MainProvider provider;
-  TextEditingController inputController;
-  FocusNode focus;
-  ScrollController scrollController;
+  RefreshController refreshController;
 
   @override
   void initState() {
     oilFormBloc = OilFormBloc.getInstance();
-    inputController = TextEditingController();
-    focus = FocusNode();
-    scrollController = ScrollController();
-    provider = MainProvider(oilFormBloc: oilFormBloc);
+    refreshController = RefreshController(initialRefresh: false);
+    provider = MainProvider(oilFormBloc: oilFormBloc, refreshController: refreshController);
     super.initState();
   }
 
@@ -43,14 +40,6 @@ class _MainScreenState extends State<MainScreen> {
       color: ITColors.bg,
       child: SafeArea(
           child: Scaffold(
-        // appBar: AppBar(
-        //   title: Text('Oil Watcher', style: ITTextStyle(fontSize: 12)),
-        //   elevation: 1,
-        //   centerTitle: true,
-        //   backgroundColor: ITColors.bg,
-        //   textTheme: TextTheme(title: ITTextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blue)),
-        //   iconTheme: IconThemeData(color: Colors.black),
-        // ),
         body: MainView(provider: provider),
       )),
     );

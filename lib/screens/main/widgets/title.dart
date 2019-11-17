@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:oil_watcher/res/text_style.dart';
-import 'package:oil_watcher/screens/info/index.dart';
-import 'package:page_transition/page_transition.dart';
 
 class DashBoardTitle extends StatelessWidget {
   @override
