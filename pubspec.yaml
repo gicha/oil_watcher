@@ -48,11 +48,4 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  assets:
-    - assets/send.png
-    - assets/avatar.png
-    - assets/vk.png
-    - assets/tg.png
-    - assets/facebook.png
-    - assets/instagram.png
 
