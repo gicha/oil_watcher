@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:oil_watcher/models/models.dart';
 import 'package:oil_watcher/res/res.dart';
 import 'package:oil_watcher/res/text_style.dart';
-import 'package:oil_watcher/screens/compairing/index.dart';
-import 'package:oil_watcher/screens/info/index.dart';
 import 'package:oil_watcher/utils/config.dart';
-import 'package:page_transition/page_transition.dart';
 
 class InfoCard extends StatelessWidget {
   final OilForm myForm;

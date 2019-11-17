@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oil_watcher/blocs/blocs.dart';
+import 'package:oil_watcher/blocs/blocs.dart' as prefix0;
 import 'package:oil_watcher/screens/compairing/index.dart';
 import 'package:oil_watcher/screens/main/provider.dart';
 import 'package:oil_watcher/screens/main/widgets/info_card.dart';
@@ -25,33 +26,33 @@ class _MainViewState extends State<MainView> {
   double get height => MediaQuery.of(context).size.height;
 
   Widget build(BuildContext context) {
-    return BlocBuilder(
-        bloc: formBloc,
-        builder: (context, OilFormState state) {
-          provider.setLoadStatus(state.loadStatus);
-          return SmartRefresher(
-              enablePullDown: true,
-              controller: provider.refreshController,
-              onRefresh: () => formBloc.dispatch(FetchOilForm()),
-              child: Container(
-                width: width,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: <Widget>[
-                      // DashBoardTitle(),
-                      SizedBox(height: 20),
-                      GestureDetector(
-                        onTap: () => Navigator.of(context).push(PageTransition(
-                            type: PageTransitionType.fade, child: CompairingScreen(oilForms: state.oilForm))),
-                        child: InfoCard(myForm: state.myForm, place: state.place),
-                      ),
-                      SizedBox(height: 20),
-                      TableHeader(),
-                      Results(forms: state.oilForm),
-                    ],
-                  ),
-                ),
-              ));
-        });
+    return SmartRefresher(
+        enablePullDown: true,
+        controller: provider.refreshController,
+        onRefresh: () => formBloc.dispatch(FetchOilForm()),
+        child: BlocBuilder(
+            bloc: formBloc,
+            builder: (context, OilFormState state) {
+              try {
+                provider.setLoadStatus(state.loadStatus);
+              } catch (e) {}
+              return Container(
+                  width: width,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(height: 20),
+                        GestureDetector(
+                          onTap: () => Navigator.of(context).push(PageTransition(
+                              type: PageTransitionType.fade, child: CompairingScreen(oilForms: state.oilForm))),
+                          child: InfoCard(myForm: state.myForm, place: state.place),
+                        ),
+                        SizedBox(height: 20),
+                        TableHeader(),
+                        Results(forms: state.oilForm),
+                      ],
+                    ),
+                  ));
+            }));
   }
 }

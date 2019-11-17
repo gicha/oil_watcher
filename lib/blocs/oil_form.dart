@@ -53,7 +53,12 @@ class OilFormBloc extends Bloc<OilFormEvent, OilFormState> {
           place = i + 1;
         }
       }
-      yield currentState.copyWith(oilForm: oilForms, myForm: myForm, place: place, loadStatus: LoadStatus.loaded);
+      yield currentState.copyWith(
+        oilForm: oilForms,
+        myForm: myForm,
+        place: place,
+        loadStatus: LoadStatus.loaded,
+      );
     }
   }
 }

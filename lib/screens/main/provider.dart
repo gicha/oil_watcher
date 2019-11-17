@@ -13,7 +13,9 @@ class MainProvider {
   final RefreshController refreshController;
 
   void setLoadStatus(bloc.LoadStatus status) {
-    if (status == bloc.LoadStatus.loaded) refreshController.refreshCompleted();
-    if (status == bloc.LoadStatus.error) refreshController.refreshFailed();
+    try {
+      if (status == bloc.LoadStatus.loaded) refreshController.refreshCompleted();
+      if (status == bloc.LoadStatus.error) refreshController.refreshFailed();
+    } catch (e) {}
   }
 }
