@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oil_watcher/blocs/blocs.dart';
 import 'package:oil_watcher/screens/compairing/index.dart';
@@ -38,7 +38,8 @@ class _MainViewState extends State<MainView> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: <Widget>[
-                      DashBoardTitle(),
+                      // DashBoardTitle(),
+                      SizedBox(height: 20),
                       GestureDetector(
                         onTap: () => Navigator.of(context).push(PageTransition(
                             type: PageTransitionType.fade, child: CompairingScreen(oilForms: state.oilForm))),

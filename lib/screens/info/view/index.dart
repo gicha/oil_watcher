@@ -25,7 +25,7 @@ class _InfoViewState extends State<InfoView> {
       child: SingleChildScrollView(
         child: Wrap(
           spacing: width * .05,
-          crossAxisAlignment: WrapCrossAlignment.center,
+          crossAxisAlignment: WrapCrossAlignment.start,
           alignment: WrapAlignment.center,
           children: <Widget>[
             SizedBox(height: 30),
@@ -43,8 +43,9 @@ class _InfoViewState extends State<InfoView> {
   Widget answerItem(BuildContext context, Answer answer) {
     return Container(
       padding: EdgeInsets.only(top: 30),
-      width: width * .45,
+      width: width * .42,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           if (answer.point == "2") Icon(LineIcons.check, color: ITColors.primary, size: 30),
           if (answer.point == "1") Icon(LineIcons.warning, color: Colors.yellowAccent, size: 30),
@@ -52,7 +53,7 @@ class _InfoViewState extends State<InfoView> {
           SizedBox(height: 10),
           Text(
             answer.question,
-            textAlign: TextAlign.center,
+            // textAlign: TextAlign.center,
           ),
         ],
       ),

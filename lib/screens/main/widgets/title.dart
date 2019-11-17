@@ -11,7 +11,7 @@ class DashBoardTitle extends StatelessWidget {
           SizedBox(height: 30),
           Text(
             "Рейтинг 2019",
-            style: ITTextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+            style: ITTextStyle(fontSize: 22, fontWeight: FontWeight.w400),
           ),
           SizedBox(height: 15),
           Text(

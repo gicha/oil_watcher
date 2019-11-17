@@ -30,7 +30,7 @@ class InfoCard extends StatelessWidget {
           children: <Widget>[
             Text(
               Config.company,
-              style: ITTextStyle(fontSize: 20, fontWeight: FontWeight.w400, color: ITColors.bg),
+              style: ITTextStyle(fontSize: 24, fontWeight: FontWeight.w400, color: ITColors.bg),
             ),
             SizedBox(height: 10),
             Text(

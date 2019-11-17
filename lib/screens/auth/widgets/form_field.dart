@@ -33,7 +33,7 @@ class AuthFormField extends StatelessWidget {
           focusNode: focus,
           obscureText: !(isPasswordVisible == true) && isPassword,
           keyboardType: TextInputType.text,
-          textInputAction: TextInputAction.done,
+          textInputAction: isPassword ? TextInputAction.done : TextInputAction.next,
           onFieldSubmitted: (term) => submit(),
           decoration: InputDecoration(
             labelText: label,
