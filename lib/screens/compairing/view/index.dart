@@ -22,24 +22,27 @@ class _CompairingViewState extends State<CompairingView> {
     prepareTable();
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
-      child: Table(
-        defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-        columnWidths: {
-          0: FixedColumnWidth(width * .5),
-          1: FixedColumnWidth(width * .25),
-          2: FixedColumnWidth(width * .25)
-        },
-        defaultColumnWidth: FixedColumnWidth(200),
-        children: List.generate(
-          table.length,
-          (rowIndex) => TableRow(
-            children: List.generate(
-              table[rowIndex].length,
-              (columnIndex) => answerCell(
-                context,
-                rowIndex,
-                columnIndex,
-                table[rowIndex][columnIndex],
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Table(
+          defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+          columnWidths: {
+            0: FixedColumnWidth(width * .5),
+            1: FixedColumnWidth(width * .25),
+            2: FixedColumnWidth(width * .25)
+          },
+          defaultColumnWidth: FixedColumnWidth(200),
+          children: List.generate(
+            table.length,
+            (rowIndex) => TableRow(
+              children: List.generate(
+                table[rowIndex].length,
+                (columnIndex) => answerCell(
+                  context,
+                  rowIndex,
+                  columnIndex,
+                  table[rowIndex][columnIndex],
+                ),
               ),
             ),
           ),
@@ -57,7 +60,7 @@ class _CompairingViewState extends State<CompairingView> {
     else if (value == "0")
       child = Icon(LineIcons.close, color: Colors.redAccent, size: 30);
     else
-      child = Container(width: 200, child: Text(value));
+      child = Text(value);
     return Container(
       // decoration: BoxDecoration(
       //   border: Border.all(width: 1, color: ITColors.text),
@@ -73,7 +76,7 @@ class _CompairingViewState extends State<CompairingView> {
     if (oilForms.isNotEmpty) {
       List<String> companies = ["Компания"];
       List<String> titles = [];
-      for (OilForm oilForm in oilForms) companies.add(oilForm.company);
+      for (OilForm oilForm in oilForms) companies.add(oilForm.company.trim());
       for (Answer answer in oilForms.first.answers) titles.add(answer.question);
       table.add(companies);
       for (int i = 1; i <= titles.length; i++) {
