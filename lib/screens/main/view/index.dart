@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oil_watcher/blocs/blocs.dart';
 import 'package:oil_watcher/screens/main/provider.dart';
+import 'package:oil_watcher/screens/main/widgets/info_card.dart';
+import 'package:oil_watcher/screens/main/widgets/results.dart';
+import 'package:oil_watcher/screens/main/widgets/table_header.dart';
+import 'package:oil_watcher/screens/main/widgets/title.dart';
 
 class MainView extends StatefulWidget {
   const MainView({Key key, @required this.provider}) : super(key: key);
@@ -18,8 +22,23 @@ class _MainViewState extends State<MainView> {
   double get height => MediaQuery.of(context).size.height;
 
   Widget build(BuildContext context) {
-    return Container(
-      width: width,
-    );
+    return BlocBuilder(
+        bloc: formBloc,
+        builder: (context, OilFormState state) {
+          return Container(
+            width: width,
+            child: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  DashBoardTitle(),
+                  InfoCard(myForm: state.myForm, place: state.place),
+                  SizedBox(height: 20),
+                  TableHeader(),
+                  Results(forms: state.oilForm),
+                ],
+              ),
+            ),
+          );
+        });
   }
 }

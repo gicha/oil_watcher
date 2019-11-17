@@ -8,16 +8,22 @@ class FetchOilForm extends OilFormEvent {}
 
 class OilFormState {
   List<OilForm> oilForm = [];
+  OilForm myForm;
+  int place;
   LoadStatus loadStatus = LoadStatus.loaded;
 
   OilFormState();
 
   OilFormState copyWith({
     List<OilForm> oilForm,
+    OilForm myForm,
+    int place,
     LoadStatus loadStatus = LoadStatus.loaded,
   }) {
     return OilFormState()
       ..oilForm = oilForm ?? this.oilForm
+      ..myForm = myForm ?? this.myForm
+      ..place = place ?? this.place
       ..loadStatus = loadStatus ?? this.loadStatus;
   }
 }
@@ -37,8 +43,17 @@ class OilFormBloc extends Bloc<OilFormEvent, OilFormState> {
   Stream<OilFormState> mapEventToState(OilFormEvent event) async* {
     if (event is FetchOilForm) {
       yield currentState.copyWith(loadStatus: LoadStatus.loading);
-      List<OilForm> oilForm = await OilFormApi.all();
-      yield currentState.copyWith(oilForm: oilForm, loadStatus: LoadStatus.loaded);
+      List<OilForm> oilForms = await OilFormApi.all();
+      OilForm myForm;
+      int place;
+      oilForms.sort((OilForm a, OilForm b) => ((a.summary - b.summary) * 100).floor());
+      for (int i = 0; i < oilForms.length; i++) {
+        if (oilForms[i].company == Config.company) {
+          myForm = oilForms[i];
+          place = i + 1;
+        }
+      }
+      yield currentState.copyWith(oilForm: oilForms, myForm: myForm, place: place, loadStatus: LoadStatus.loaded);
     }
   }
 }

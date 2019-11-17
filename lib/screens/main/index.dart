@@ -43,14 +43,14 @@ class _MainScreenState extends State<MainScreen> {
       color: ITColors.bg,
       child: SafeArea(
           child: Scaffold(
-        appBar: AppBar(
-          title: Text('Oil Watcher', style: ITTextStyle(fontSize: 12)),
-          elevation: 1,
-          centerTitle: true,
-          backgroundColor: ITColors.bg,
-          textTheme: TextTheme(title: ITTextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blue)),
-          iconTheme: IconThemeData(color: Colors.black),
-        ),
+        // appBar: AppBar(
+        //   title: Text('Oil Watcher', style: ITTextStyle(fontSize: 12)),
+        //   elevation: 1,
+        //   centerTitle: true,
+        //   backgroundColor: ITColors.bg,
+        //   textTheme: TextTheme(title: ITTextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blue)),
+        //   iconTheme: IconThemeData(color: Colors.black),
+        // ),
         body: MainView(provider: provider),
       )),
     );
