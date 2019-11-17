@@ -16,9 +16,9 @@ class I18n implements WidgetsLocalizations {
   static Locale _locale;
   static bool _shouldReload = false;
 
-  static set locale(Locale _newLocale) {
+  static set locale(Locale newLocale) {
     _shouldReload = true;
-    I18n._locale = _newLocale;
+    I18n._locale = newLocale;
   }
 
   static const GeneratedLocalizationsDelegate delegate = GeneratedLocalizationsDelegate();
@@ -34,8 +34,8 @@ class I18n implements WidgetsLocalizations {
 
   /// "Подождите, идёт загрузка..."
   String get loading => "Подождите, идёт загрузка...";
-  /// "oil_watcher"
-  String get title => "oil_watcher";
+  /// "Eco Monitor"
+  String get title => "Eco Monitor";
   /// "Название отсутствует"
   String get noTitle => "Название отсутствует";
   /// "Описание отсутствует"
@@ -50,10 +50,6 @@ class I18n implements WidgetsLocalizations {
   String get confirm => "Подтвердить";
   /// "Отменить"
   String get cancel => "Отменить";
-  /// "Бар не выбран"
-  String get noBar => "Бар не выбран";
-  /// "Ближайший бар #${name}"
-  String nearestBar(String name) => "Ближайший бар #${name}";
   /// "Неправильный email или пароль"
   String get wrongLoginOrPassword => "Неправильный email или пароль";
   /// "История"
@@ -109,9 +105,9 @@ class _I18n_en_US extends I18n {
   /// "Wait please, loading..."
   @override
   String get loading => "Wait please, loading...";
-  /// "oil_watcher"
+  /// "Eco Monitor"
   @override
-  String get title => "oil_watcher";
+  String get title => "Eco Monitor";
   /// "Title is undefined"
   @override
   String get noTitle => "Title is undefined";
@@ -133,12 +129,6 @@ class _I18n_en_US extends I18n {
   /// "Cancel"
   @override
   String get cancel => "Cancel";
-  /// "Bar not found"
-  @override
-  String get noBar => "Bar not found";
-  /// "Nearest bar #${name}"
-  @override
-  String nearestBar(String name) => "Nearest bar #${name}";
   /// "Wrong email or password"
   @override
   String get wrongLoginOrPassword => "Wrong email or password";
@@ -227,8 +217,8 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<WidgetsLocali
   Future<WidgetsLocalizations> load(Locale locale) {
     I18n._locale ??= locale;
     I18n._shouldReload = false;
-    final String lang = I18n._locale != null ? locale.toString() : "";
-    final String languageCode = I18n._locale != null ? locale.languageCode : "";
+    final String lang = I18n._locale != null ? I18n._locale.toString() : "";
+    final String languageCode = I18n._locale != null ? I18n._locale.languageCode : "";
     if ("ru_RU" == lang) {
       return SynchronousFuture<WidgetsLocalizations>(const _I18n_ru_RU());
     }

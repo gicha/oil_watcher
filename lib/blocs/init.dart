@@ -37,7 +37,7 @@ class InitBloc extends Bloc<InitEvent, InitState> {
       var store = StoreRef<String, dynamic>.main();
       Config.company = await store.record("company").get(DataBase.db);
       yield Config.company != null ? InitState.inited : InitState.noUser;
-      await Future.delayed(Duration(milliseconds: 1000));
+      await Future.delayed(Duration(seconds: 2));
     }
     if (event is LoginInitEvent) {
       yield InitState.loading;

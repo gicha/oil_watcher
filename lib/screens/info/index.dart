@@ -25,7 +25,7 @@ class _InfoScreenState extends State<InfoScreen> {
         appBar: AppBar(
           title: Container(
             padding: EdgeInsets.only(bottom: 0),
-            width: MediaQuery.of(context).size.width * .6,
+            width: MediaQuery.of(context).size.width * .7,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

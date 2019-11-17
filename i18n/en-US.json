@@ -1,6 +1,6 @@
 {
     "loading": "Wait please, loading...",
-    "title": "Boohack",
+    "title": "Eco Monitor",
     "noTitle": "Title is undefined",
     "noDesc": "Description is undefined",
     "noLocation": "Location is undefined",
@@ -9,8 +9,6 @@
     "confirm": "Confirm",
     "cancel": "Cancel",
     "wrongLoginOrPassword": "Wrong email or password",
-    "nearestBar": "Nearest bar #{name}",
-    "noBar": "Bar not found",
     "history": "History",
     "mail": "Email",
     "password": "Password",

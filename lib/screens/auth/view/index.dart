@@ -2,6 +2,7 @@ import 'package:oil_watcher/screens/auth/blocs/index.dart';
 import 'package:oil_watcher/screens/auth/widgets/login_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:oil_watcher/screens/auth/widgets/logo.dart';
 
 class LoginAuthScreenView extends StatefulWidget {
   const LoginAuthScreenView({Key key, this.bloc}) : super(key: key);
@@ -26,6 +27,8 @@ class _LoginAuthScreenViewState extends State<LoginAuthScreenView> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Container(height: 45),
+              Logo(),
+              Container(height: 25),
               BlocBuilder(
                 bloc: bloc,
                 builder: (context, state) => LoginForm(authFormBloc: bloc),
