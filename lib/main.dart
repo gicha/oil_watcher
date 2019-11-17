@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:oil_watcher/screens/auth/index.dart';
 import 'package:oil_watcher/widgets/loading.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -131,7 +132,7 @@ void startHome() async {
                         child: BlocBuilder(
                           bloc: bloc,
                           builder: (context, state) {
-                            if (state == InitState.noUser) return MainScreen();
+                            if (state == InitState.noUser) return AuthScreen();
                             if (state == InitState.loading)
                               return Scaffold(backgroundColor: Theme.of(context).backgroundColor, body: ITLoading());
                             if (state == InitState.notInitedLoading) return SplashScreen();
