@@ -1,9 +1,6 @@
 import 'dart:async';
 
 import 'package:oil_watcher/widgets/loading.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_analytics/observer.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
@@ -21,9 +18,6 @@ import 'screens/splash/index.dart';
 
 bool isInDebugMode = false;
 void main() {
-  Crashlytics.instance.enableInDevMode = true;
-  FlutterError.onError = Crashlytics.instance.recordFlutterError;
-
   FlutterError.onError = (FlutterErrorDetails details) {
     if (isInDebugMode) {
       FlutterError.dumpErrorToConsole(details);
@@ -35,14 +29,12 @@ void main() {
   runZoned<Future<void>>(() async {
     startHome();
   }, onError: (error, stackTrace) async {
-    Crashlytics.instance.recordError(error, stackTrace);
     print('Caught error: $error');
     print(stackTrace);
   });
 }
 
 void startHome() async {
-  FirebaseAnalytics analytics = FirebaseAnalytics();
   InitBloc bloc = InitBloc.getInstance();
   NotificationBloc notificationBloc = NotificationBloc.getInstance();
   DialogBloc dialogBloc = DialogBloc.getInstance();
@@ -69,9 +61,6 @@ void startHome() async {
             return CupertinoApp(
               showSemanticsDebugger: false,
               debugShowCheckedModeBanner: false,
-              navigatorObservers: [
-                FirebaseAnalyticsObserver(analytics: analytics),
-              ],
               theme: CupertinoThemeData(
                   brightness: theme.brightness,
                   primaryColor: theme.primaryColor,
