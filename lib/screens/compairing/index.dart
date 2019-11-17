@@ -19,8 +19,7 @@ class _CompairingScreenState extends State<CompairingScreen> {
   Widget build(BuildContext context) {
     return Container(
       color: ITColors.bg,
-      child: SafeArea(
-          child: Scaffold(
+      child: Scaffold(
         appBar: AppBar(
           title: Container(
             padding: EdgeInsets.only(bottom: 0),
@@ -38,7 +37,7 @@ class _CompairingScreenState extends State<CompairingScreen> {
           iconTheme: IconThemeData(color: Colors.white),
         ),
         body: CompairingView(oilForms: widget.oilForms),
-      )),
+      ),
     );
   }
 }

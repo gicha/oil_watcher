@@ -38,10 +38,9 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Container(
       color: ITColors.bg,
-      child: SafeArea(
-          child: Scaffold(
+      child: Scaffold(
         body: MainView(provider: provider),
-      )),
+      ),
     );
   }
 }
