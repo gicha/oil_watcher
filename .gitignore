@@ -29,6 +29,12 @@
 .pub/
 /build/
 
+android/.gradle/
+android/app/google-services.json
+android/key.properties
+android/app/key.jks
+ios/Runner/GoogleService-Info.plist
+
 # Android related
 **/android/**/gradle-wrapper.jar
 **/android/.gradle
