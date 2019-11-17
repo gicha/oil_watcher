@@ -3,7 +3,6 @@ import 'package:oil_watcher/models/models.dart';
 import 'package:oil_watcher/res/res.dart';
 import 'package:oil_watcher/res/text_style.dart';
 import 'package:oil_watcher/screens/compairing/view/index.dart';
-import 'package:oil_watcher/utils/utils.dart';
 
 /// Compairing Screen
 /// {@category Screens}

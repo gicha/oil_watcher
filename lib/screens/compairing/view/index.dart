@@ -16,40 +16,70 @@ class _CompairingViewState extends State<CompairingView> {
   double get width => MediaQuery.of(context).size.width;
   double get height => MediaQuery.of(context).size.height;
 
+  List<List<String>> table;
+
   Widget build(BuildContext context) {
-    return Container(
-      width: width,
-      child: SingleChildScrollView(
-        child: Table(
-            children: List.generate(oilForms.length, (rowIndex) {
-          return TableRow(
-            children: List.generate(oilForms[rowIndex].answers.length, (columnIndex) {
-              return Container(
-                child: Text(oilForms[rowIndex].answers[columnIndex].point),
-              );
-            }),
-          );
-        })),
+    prepareTable();
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      child: Table(
+        defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+        columnWidths: {
+          0: FixedColumnWidth(width * .5),
+          1: FixedColumnWidth(width * .25),
+          2: FixedColumnWidth(width * .25)
+        },
+        defaultColumnWidth: FixedColumnWidth(200),
+        children: List.generate(
+          table.length,
+          (rowIndex) => TableRow(
+            children: List.generate(
+              table[rowIndex].length,
+              (columnIndex) => answerCell(
+                context,
+                rowIndex,
+                columnIndex,
+                table[rowIndex][columnIndex],
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
 
-  Widget answerItem(BuildContext context, Answer answer) {
+  Widget answerCell(BuildContext context, int i, int j, String value) {
+    Widget child;
+    if (value == "2")
+      child = Icon(LineIcons.check, color: ITColors.primary, size: 30);
+    else if (value == "1")
+      child = Icon(LineIcons.warning, color: Colors.yellowAccent, size: 30);
+    else if (value == "0")
+      child = Icon(LineIcons.close, color: Colors.redAccent, size: 30);
+    else
+      child = Container(width: 200, child: Text(value));
     return Container(
-      padding: EdgeInsets.only(top: 30),
-      width: width * .45,
-      child: Column(
-        children: <Widget>[
-          if (answer.point == "2") Icon(LineIcons.check, color: ITColors.primary, size: 30),
-          if (answer.point == "1") Icon(LineIcons.warning, color: Colors.yellowAccent, size: 30),
-          if (answer.point == "0") Icon(LineIcons.close, color: Colors.redAccent, size: 30),
-          SizedBox(height: 10),
-          Text(
-            answer.question,
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
+      // decoration: BoxDecoration(
+      //   border: Border.all(width: 1, color: ITColors.text),
+      color: ITColors.bg,
+      // ),
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+      child: child,
     );
+  }
+
+  prepareTable() {
+    table = List<List<String>>();
+    if (oilForms.isNotEmpty) {
+      List<String> companies = ["Компания"];
+      List<String> titles = [];
+      for (OilForm oilForm in oilForms) companies.add(oilForm.company);
+      for (Answer answer in oilForms.first.answers) titles.add(answer.question);
+      table.add(companies);
+      for (int i = 1; i <= titles.length; i++) {
+        table.add([titles[i - 1]]);
+        for (int j = 1; j < companies.length; j++) table[i].add(oilForms[j - 1].answers[i - 1].point);
+      }
+    }
   }
 }
