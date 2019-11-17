@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:oil_watcher/blocs/blocs.dart';
 import 'package:oil_watcher/models/models.dart';
 import 'package:oil_watcher/res/res.dart';
 import 'package:oil_watcher/res/text_style.dart';
-import 'package:oil_watcher/screens/info/provider.dart';
 import 'package:oil_watcher/screens/info/view/index.dart';
 import 'package:oil_watcher/utils/utils.dart';
 
@@ -18,30 +16,6 @@ class InfoScreen extends StatefulWidget {
 }
 
 class _InfoScreenState extends State<InfoScreen> {
-  // blocs
-  OilFormBloc oilFormBloc;
-  //other
-  InfoProvider provider;
-  TextEditingController inputController;
-  FocusNode focus;
-  ScrollController scrollController;
-
-  @override
-  void initState() {
-    oilFormBloc = OilFormBloc.getInstance();
-    inputController = TextEditingController();
-    focus = FocusNode();
-    scrollController = ScrollController();
-    provider = InfoProvider(oilFormBloc: oilFormBloc);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    oilFormBloc.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -49,27 +23,32 @@ class _InfoScreenState extends State<InfoScreen> {
       child: SafeArea(
           child: Scaffold(
         appBar: AppBar(
-          title: Row(
-            children: <Widget>[
-              SizedBox(height: 30),
-              Text(
-                widget.oilForm.company,
-                style: ITTextStyle(fontSize: 20, fontWeight: FontWeight.w400, color: ITColors.bg),
-              ),
-              SizedBox(height: 15),
-              Text(
-                "${widget.oilForm.summary} ${Utils.getNoun(((widget.oilForm.summary * 100) % 100).floor(), "балл", "балла", "баллов")}",
-                style: ITTextStyle(fontSize: 22, fontWeight: FontWeight.w500, color: ITColors.bg),
-              ),
-            ],
+          title: Container(
+            padding: EdgeInsets.only(bottom: 0),
+            width: MediaQuery.of(context).size.width * .6,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  widget.oilForm.company,
+                  style: ITTextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: ITColors.bg),
+                ),
+                Text(
+                  "${widget.oilForm.summary} ${Utils.getNoun(((widget.oilForm.summary * 100) % 100).floor(), "балл", "балла", "баллов")}",
+                  style: ITTextStyle(fontSize: 18, fontWeight: FontWeight.w400, color: ITColors.bg),
+                ),
+              ],
+            ),
           ),
           elevation: 1,
           centerTitle: true,
           backgroundColor: ITColors.primary,
+          primary: true,
           textTheme: TextTheme(title: ITTextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blue)),
-          iconTheme: IconThemeData(color: Colors.black),
+          iconTheme: IconThemeData(color: Colors.white),
         ),
-        body: InfoView(provider: provider),
+        body: InfoView(oilForm: widget.oilForm),
       )),
     );
   }
